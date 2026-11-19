@@ -1,0 +1,25 @@
+---
+title: "stygai-status — a homelab status service"
+publishedAt: "2026-11-18"
+summary: "One Go service answering the questions that matter about a home server: containers up? hardware healthy? when did the last ZFS scrub run? Failures page the phone via Healthchecks → ntfy."
+---
+
+## Overview
+
+stygai-status is a single Go binary that monitors the homelab it runs on. It reports
+container health, hardware state, ZFS scrub recency, and when the off-site backups last
+landed — everything the dashboard needs to answer "is the box okay?" at a glance.
+
+Failures don't just sit in a log: they flow through Healthchecks into ntfy and reach the
+phone as a push notification.
+
+## Highlights
+
+- Stdlib-first Go — `gopsutil` is the one heavyweight dependency
+- Built as a deliberate Go learning project, running in production
+- Consumed by the Homepage dashboard as a status API
+- CI via GitHub Actions
+
+## Links
+
+- [github.com/awaleha/stygai-status](https://github.com/awaleha/stygai-status)
