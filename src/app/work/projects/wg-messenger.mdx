@@ -1,0 +1,37 @@
+---
+title: "wg-messenger"
+publishedAt: "2026-05-05"
+summary: "A Go-based peer-to-peer terminal messenger that sends messages over a private WireGuard network."
+---
+
+## Overview
+
+WireGuard gives you an encrypted tunnel between two machines for free — wg-messenger builds
+the messenger on top of it. Peers are addressed by name on a private network, messages travel
+directly between machines with no central server, and everything runs from the terminal.
+
+WireGuard handles all of the cryptography; wg-messenger deliberately doesn't reimplement it.
+The Go app provides the CLI, the daemon, the message protocol, storage, and diagnostics.
+
+## How it works
+
+- `wgmsg init` and `wgmsg peer add` set up an identity and register peers by their
+  WireGuard public key; `wgmsg up` brings the link up
+- `wgmsg daemon` runs a background process that listens for and delivers messages
+- `wgmsg send bob "hello over wireguard"` sends a message to a peer by name
+- `wgmsg inbox` reads message history, backed by SQLite
+- Messages carry ACKs and delivery status, with an offline queue and retry so nothing
+  is lost while a peer is away
+- `wgmsg doctor` runs network diagnostics when something doesn't deliver
+- A local two-node demo exercises the whole flow without touching real infrastructure
+
+## Built so far
+
+The cobra-based CLI (`daemon`, `send`, `version`), the local daemon, and the message and
+transport packages are in the repository. Peer management, SQLite history, and diagnostics
+are the next milestones — the project is also the backbone of a guided Go learning
+assignment, so each piece lands as its own step.
+
+## Links
+
+- [github.com/awaleha/wg-messenger](https://github.com/awaleha/wg-messenger)

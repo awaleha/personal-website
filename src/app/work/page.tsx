@@ -31,7 +31,11 @@ export default function Work() {
       <Heading marginBottom="l" variant="heading-strong-xl" align="center">
         {work.title}
       </Heading>
-      <Projects />
+      <Projects range={[1, 1]} />
+      <Heading as="h2" variant="display-strong-s" marginBottom="16" paddingX="l">
+        More projects
+      </Heading>
+      <Projects range={[2]} variant="compact" />
     </Column>
   );
 }

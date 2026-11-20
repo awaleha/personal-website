@@ -85,10 +85,22 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Awale is a Toronto-based software engineer. When not writing code, he runs a small home
-        lab: a Tailscale-only network serving media, monitoring, photos, and a handful of
-        self-written services under a single Cloudflare-fronted domain — built with Docker
-        Compose, Traefik, and a healthy respect for keeping things boring.
+        <Text as="p" variant="body-default-l">
+          Awale is a full-stack software developer with seven years of experience building and
+          deploying web applications in banking and fintech. He currently works at Propel
+          Holdings, where he led front-end development for the FreshLine credit brand launch —
+          React and TypeScript dashboards backed by Spring Boot webhooks — and refactored a
+          compliance-critical email batching pipeline with structured SLF4J/Log4j2 logging.
+          Before Propel, he spent six years at Home Trust Financial building enterprise content
+          management applications with Next.js, Java Spring, and MySQL, and automating AWS
+          deployments.
+        </Text>
+        <Text as="p" variant="body-default-l">
+          When not writing code, Awale runs a small home lab: a Tailscale-only network serving
+          media, monitoring, photos, and a handful of self-written services under a single
+          Cloudflare-fronted domain — built with Docker Compose, Traefik, and a healthy respect
+          for keeping things boring.
+        </Text>
       </>
     ),
   },
@@ -109,7 +121,7 @@ const about: About = {
       {
         title: "Go",
         description: (
-          <>Small, stdlib-first services. stygai-status runs in production on the homelab and pages the phone when something breaks.</>
+          <>Small, stdlib-first services. stygai-status runs in production on the homelab and pages the phone when something breaks — wg-messenger sends messages across a private WireGuard network.</>
         ),
         tags: [
           {
@@ -122,7 +134,7 @@ const about: About = {
       {
         title: "TypeScript & Next.js",
         description: (
-          <>Web apps and dashboards — this portfolio included, built on Next.js.</>
+          <>React and Redux frontends at Propel, Next.js and TypeScript applications at Home Trust Financial — and this portfolio, built on Next.js.</>
         ),
         tags: [
           {
@@ -130,8 +142,20 @@ const about: About = {
             icon: "nextjs",
           },
           {
+            name: "React",
+            icon: "react",
+          },
+          {
             name: "JavaScript",
             icon: "javascript",
+          },
+          {
+            name: "Redux",
+            icon: "redux",
+          },
+          {
+            name: "Tailwind",
+            icon: "tailwind",
           },
         ],
         images: [],
@@ -145,6 +169,78 @@ const about: About = {
           {
             name: "Python",
             icon: "python",
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Java & Spring Boot",
+        description: (
+          <>Six years of enterprise Java at Home Trust Financial — Spring, Hibernate, and JPA behind OpenText document pipelines — plus Spring Boot webhook integrations at Propel.</>
+        ),
+        tags: [
+          {
+            name: "Java",
+            icon: "java",
+          },
+          {
+            name: "Spring Boot",
+            icon: "springboot",
+          },
+          {
+            name: "Hibernate",
+            icon: "hibernate",
+          },
+          {
+            name: "Maven",
+            icon: "maven",
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Node.js & AWS",
+        description: (
+          <>Production Node.js services on AWS: typed REST APIs, webhook handlers, SQS/SNS event-driven workers, S3 deployments, and CloudWatch monitoring behind least-privilege IAM.</>
+        ),
+        tags: [
+          {
+            name: "Node.js",
+            icon: "nodejs",
+          },
+          {
+            name: "AWS",
+            icon: "aws",
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Databases",
+        description: (
+          <>MySQL system reporting and data migrations in production, plus PostgreSQL on the homelab.</>
+        ),
+        tags: [
+          {
+            name: "MySQL",
+            icon: "mysql",
+          },
+          {
+            name: "PostgreSQL",
+            icon: "postgresql",
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Testing & quality",
+        description: (
+          <>Unit and end-to-end testing, structured SLF4J/Log4j2 logging, and agile delivery with Git-based workflows.</>
+        ),
+        tags: [
+          {
+            name: "Git",
+            icon: "git",
           },
         ],
         images: [],

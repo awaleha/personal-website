@@ -6,19 +6,82 @@ summary: "One Go service answering the questions that matter about a home server
 
 ## Overview
 
-stygai-status is a single Go binary that monitors the homelab it runs on. It reports
-container health, hardware state, ZFS scrub recency, and when the off-site backups last
-landed — everything the dashboard needs to answer "is the box okay?" at a glance.
+The home server sits in a corner of the house with no monitor attached, and "is the box okay?"
+used to mean an SSH session and a handful of commands. stygai-status is the answer: one Go
+service that turns the machine's own internals into a tiny JSON API, so a dashboard shows
+container health, hardware state, ZFS pool status, and backup freshness at a glance — and
+failures reach the phone as push notifications.
 
-Failures don't just sit in a log: they flow through Healthchecks into ntfy and reach the
-phone as a push notification.
+It was written as a deliberate Go learning project and has run in production since day one —
+stdlib-first, with `gopsutil` as the one heavyweight dependency.
 
-## Highlights
+## What it monitors
 
-- Stdlib-first Go — `gopsutil` is the one heavyweight dependency
-- Built as a deliberate Go learning project, running in production
-- Consumed by the Homepage dashboard as a status API
-- CI via GitHub Actions
+- **ZFS** (`GET /api/v1/zfs`) — the `stag` pool: health, size, and last/next scrub dates,
+  read straight from `zpool list` / `zpool status`
+- **System** (`GET /api/v1/system`) — CPU, memory, disks, load, and uptime via `gopsutil`
+- **Docker** (`GET /api/v1/docker`) — every container with its health state, from the
+  Docker socket API
+- **Backups** (`GET /api/v1/backups`) — when the off-site restic backup on oldtown last
+  ran, read from the Healthchecks API with a read-only key
+
+Plus `GET /healthz` for liveness.
+
+## How alerts work
+
+Failures don't just sit in a log file. The Homepage dashboard polls the API and turns
+widgets red; separately, cron scripts ping Healthchecks with start/exit signals, and
+Healthchecks fires alerts into ntfy, which pushes to the phone. A small companion binary,
+`notify`, lets any script on the box send a push with one command:
+
+```sh
+go run ./cmd/notify --topic alerts "backup done"
+```
+
+## Architecture
+
+```text
+                        Tailscale (tailnet)
+    oldtown (restic wrapper) ────────────┐
+    phone (ntfy app) ────────────────────┤
+                                         ▼
+               traefik                    (tailnet only)
+                    │           │
+               /hc  │           │  /ntfy
+                    ▼           ▼
+             healthchecks ──alert──► ntfy
+                    ▲
+      ping /start /exit (curl) from cron scripts
+                    │
+   homepage ◄──customapi── stygai-status (internal network only)
+                 ├── zpool list / zpool status ──► pool stag
+                 ├── gopsutil ───────────────────► cpu, ram, disks, load
+                 ├── docker socket API ──────────► containers
+                 └── healthchecks API ───────────► last restic backup
+```
+
+## Design decisions
+
+- **Tailnet-only, no host ports.** The API publishes no ports on the host — it lives on the
+  internal Docker network and Homepage fetches it server-side. Access control is the tailnet
+  plus the network boundary.
+- **Read-only everything.** `/proc`, `/sys`, and the Docker socket are mounted read-only;
+  `/dev/zfs` is passed through for pool queries; Healthchecks uses a read-only API key.
+- **Stdlib-first.** `gopsutil` is the only heavyweight dependency — HTTP, JSON, and flags
+  are all standard library.
+- **Two small binaries.** `stygai-status` serves the API; `notify` is a one-shot CLI for
+  scripts. `make build` and `make test` cover both.
+- **Self-policing container.** The Docker healthcheck pings the binary itself, so Docker
+  knows the service is unhealthy before the dashboard does.
+- **CI from the first commit.** GitHub Actions runs the test suite on every push.
+
+## What I learned
+
+This was my first real Go service, and the structure it forced was the biggest lesson:
+small internal packages (`zfs`, `system`, `docker`, `healthchecks`, `notifier`) with a test
+per package made the code easy to grow without rewriting. Interfaces earned their keep too —
+the notifier and the Healthchecks client are simple enough to fake, which made the test
+suite fast and the alerting path trustworthy enough to depend on for real.
 
 ## Links
 
