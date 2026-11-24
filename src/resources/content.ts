@@ -34,7 +34,7 @@ export const nav = [
 ];
 
 export const home = {
-  headline: "the internet,\nwrit small.",
+  headline: "internet,\nwrit small.",
   subline:
     "full-stack engineer in Toronto — seven years of banking software by day, a self-hosted stack by night. this page ships from Cloudflare's edge; the instruments below report from the server in my apartment.",
   tower: {
@@ -195,7 +195,7 @@ export const uses = {
 export const friends = {
   title: "friends",
   intro:
-    "links i hand to people i trust. if you're reading this page, you're on the list.",
+    "this page is public. the links are not — each app has its own login, and i'm the one who hands them out.",
   apps: [
     {
       name: "seerr",
