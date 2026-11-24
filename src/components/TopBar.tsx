@@ -10,15 +10,15 @@ export function TopBar() {
   const active = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-ink/85 backdrop-blur-sm">
-      <div className="flex h-14 items-center justify-between gap-6">
+    <header className="sticky top-3 z-20">
+      <div className="flex h-14 items-center justify-between gap-5 rounded-lg border border-line bg-panel/75 px-4 backdrop-blur-md sm:px-5 md:gap-6">
         <Link
           href="/"
           className="font-display text-[1.0625rem] font-semibold tracking-tight lowercase transition-colors hover:text-cyan"
         >
           awale hassan
         </Link>
-        <nav className="flex items-center gap-5 text-[0.9375rem]">
+        <nav className="flex items-center gap-4 text-[0.9375rem] sm:gap-5">
           {nav.map((item) => (
             <Link
               key={item.href}
