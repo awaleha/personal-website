@@ -1,130 +1,85 @@
-import {
-  Heading,
-  Text,
-  Button,
-  Avatar,
-  RevealFx,
-  Column,
-  Badge,
-  Row,
-  Schema,
-  Meta,
-  Line,
-} from "@once-ui-system/core";
-import { home, about, person, baseURL, routes } from "@/resources";
-import { Mailchimp } from "@/components";
-import { Projects } from "@/components/work/Projects";
-import { Posts } from "@/components/blog/Posts";
-
-export async function generateMetadata() {
-  return Meta.generate({
-    title: home.title,
-    description: home.description,
-    baseURL: baseURL,
-    path: home.path,
-    image: home.image,
-  });
-}
+import Link from "next/link";
+import { Section } from "@/components/Section";
+import { ProjectRow } from "@/components/ProjectRow";
+import { StatusStrip } from "@/components/status";
+import { about, gallery, home, person, projects } from "@/resources/content";
 
 export default function Home() {
+  const featured = projects.slice(0, 3);
   return (
-    <Column maxWidth="m" gap="xl" paddingY="12" horizontal="center">
-      <Schema
-        as="webPage"
-        baseURL={baseURL}
-        path={home.path}
-        title={home.title}
-        description={home.description}
-        image="/images/og/awale-hassan.jpg"
-        author={{
-          name: person.name,
-          url: `${baseURL}${about.path}`,
-          image: `${baseURL}${person.avatar}`,
-        }}
-      />
-      <Column fillWidth horizontal="center" gap="m">
-        <Column maxWidth="s" horizontal="center" align="center">
-          {home.featured.display && (
-            <RevealFx
-              fillWidth
-              horizontal="center"
-              paddingTop="16"
-              paddingBottom="32"
-              paddingLeft="12"
-            >
-              <Badge
-                background="brand-alpha-weak"
-                paddingX="12"
-                paddingY="4"
-                onBackground="neutral-strong"
-                textVariant="label-default-s"
-                arrow={false}
-                href={home.featured.href}
-              >
-                <Row paddingY="2">{home.featured.title}</Row>
-              </Badge>
-            </RevealFx>
-          )}
-          <RevealFx translateY="4" fillWidth horizontal="center" paddingBottom="16">
-            <Heading wrap="balance" variant="display-strong-l">
+    <>
+      <section className="pt-14 md:pt-24">
+        <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_26rem]">
+          <div className="rise">
+            <h1 className="max-w-[15ch] font-display text-[2.75rem] font-semibold leading-[1.04] tracking-tight md:text-[3.9rem]">
               {home.headline}
-            </Heading>
-          </RevealFx>
-          <RevealFx translateY="8" delay={0.2} fillWidth horizontal="center" paddingBottom="32">
-            <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
-              {home.subline}
-            </Text>
-          </RevealFx>
-          <RevealFx paddingTop="12" delay={0.4} horizontal="center" paddingLeft="12">
-            <Button
-              id="about"
-              data-border="rounded"
-              href={about.path}
-              variant="secondary"
-              size="m"
-              weight="default"
-              arrowIcon
-            >
-              <Row gap="8" vertical="center" paddingRight="4">
-                {about.avatar.display && (
-                  <Avatar
-                    marginRight="8"
-                    style={{ marginLeft: "-0.75rem" }}
-                    src={person.avatar}
-                    size="m"
-                  />
-                )}
-                {about.title}
-              </Row>
-            </Button>
-          </RevealFx>
-        </Column>
-      </Column>
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
-      </RevealFx>
-      {routes["/blog"] && (
-        <Column fillWidth gap="24" marginBottom="l">
-          <Row fillWidth paddingRight="64">
-            <Line maxWidth={48} />
-          </Row>
-          <Row fillWidth gap="24" marginTop="40" s={{ direction: "column" }}>
-            <Row flex={1} paddingLeft="l" paddingTop="24">
-              <Heading as="h2" variant="display-strong-xs" wrap="balance">
-                Latest from the blog
-              </Heading>
-            </Row>
-            <Row flex={3} paddingX="20">
-              <Posts range={[1, 2]} columns="2" />
-            </Row>
-          </Row>
-          <Row fillWidth paddingLeft="64" horizontal="end">
-            <Line maxWidth={48} />
-          </Row>
-        </Column>
-      )}
-      <Projects range={[2]} />
-      <Mailchimp />
-    </Column>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-mute">{home.subline}</p>
+            <div className="mt-8 flex gap-6 text-[0.9375rem]">
+              <Link href="/work" className="link-quiet">
+                the work
+              </Link>
+              <Link href="/about" className="link-quiet">
+                about me
+              </Link>
+            </div>
+          </div>
+          <figure className="rise-2">
+            <img
+              src={home.tower.src}
+              alt={home.tower.alt}
+              width={1500}
+              height={749}
+              className="w-full rounded-[3px] border border-line"
+            />
+            <figcaption className="mono-label mt-2.5 text-right">{home.tower.caption}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div className="mt-12 md:mt-16">
+        <StatusStrip />
+      </div>
+
+      <Section title="selected work" href="/work" linkLabel="all work">
+        {featured.map((project) => (
+          <ProjectRow key={project.slug} project={project} />
+        ))}
+      </Section>
+
+      <Section title="about" href="/about" linkLabel="more">
+        <div className="grid gap-10 pt-6 md:grid-cols-[10rem_minmax(0,1fr)]">
+          <img
+            src="/images/avatar.jpg"
+            alt={`Portrait of ${person.name}`}
+            width={160}
+            height={160}
+            className="size-40 rounded-[3px] border border-line object-cover"
+          />
+          <div className="max-w-[40rem]">
+            <p className="leading-relaxed text-mute">{about.intro[0]}</p>
+            <p className="mt-4 text-sm text-mute">
+              <span className="text-text">{person.role}</span> · {person.location}
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="gallery" href="/gallery" linkLabel="all photos">
+        <div className="grid grid-cols-3 gap-4 pt-6">
+          {gallery.images.slice(0, 3).map((image) => (
+            <img
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              className="aspect-square w-full rounded-[3px] border border-line object-cover"
+            />
+          ))}
+        </div>
+      </Section>
+    </>
   );
 }

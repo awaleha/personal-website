@@ -1,7 +1,9 @@
 ---
-title: "Finance Dashboard"
+title: "finance-dashboard"
 publishedAt: "2026-03-13"
-summary: "A personal finance dashboard that ingests monthly credit card statements, supports manual categorization of transactions, and visualizes spending patterns over time."
+summary: "A privacy-first spending dashboard: monthly credit card statements go in, transactions get categorized by hand, and interactive dashboards show where the money actually goes."
+status: "local"
+stack: ["next.js", "typescript", "prisma", "postgresql"]
 ---
 
 ## Overview
@@ -10,7 +12,61 @@ A lightweight, privacy-focused tool for understanding personal spending habits. 
 credit card statements go in, transactions get categorized by hand, and interactive
 dashboards show where the money actually goes.
 
-All data stays local — it's a personal finance tool, not a data-collection service.
+The rule is simple: all data stays local. This is a personal finance tool, not a
+data-collection service, so there is no cloud component to trust — the app, the database,
+and the statements live on one machine.
+
+<figure class="diagram">
+<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" fontFamily="JetBrains Mono, monospace" fontSize="11">
+  <defs>
+    <marker id="fd-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="90" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="42" y="112" fill="#e6edf3">statement csv</text>
+  <text x="42" y="128" fill="#8b98ab" fontSize="9.5">uploaded by hand</text>
+
+  <rect x="240" y="90" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="252" y="112" fill="#e6edf3">next.js api routes</text>
+  <text x="252" y="128" fill="#8b98ab" fontSize="9.5">parse + normalize</text>
+
+  <rect x="450" y="90" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="462" y="112" fill="#e6edf3">postgresql</text>
+  <text x="462" y="128" fill="#8b98ab" fontSize="9.5">prisma orm</text>
+
+  <rect x="30" y="30" width="150" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="42" y="54" fill="#e6edf3">nextauth</text>
+
+  <rect x="240" y="180" width="150" height="44" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="252" y="200" fill="#e6edf3">dashboards</text>
+  <text x="252" y="216" fill="#8b98ab" fontSize="9.5">category + trend views</text>
+
+  <path d="M180 115 H240" stroke="#1f2937" marker-end="url(#fd-a)"/>
+  <path d="M390 115 H450" stroke="#1f2937" marker-end="url(#fd-a)"/>
+  <path d="M525 140 C 525 165 390 165 390 180" stroke="#1f2937" fill="none" marker-end="url(#fd-a)"/>
+  <path d="M105 70 V90" stroke="#1f2937" marker-end="url(#fd-a)"/>
+
+  <text x="30" y="238" fill="#8b98ab" fontSize="9.5">local docker postgres — data never leaves the box</text>
+</svg>
+<figcaption>statements in, categories out — one machine, no cloud leg</figcaption>
+</figure>
+
+## Features
+
+- Upload monthly credit card statements
+- Automatic parsing of transaction data
+- Manual transaction categorization
+- Spending summaries by category
+- Historical spending trends
+- Interactive dashboard visualizations
+
+## Stack
+
+Frontend: Next.js (App Router), React, TypeScript. Backend: Next.js API routes with a
+Prisma ORM over PostgreSQL. Authentication via NextAuth. A local Docker database keeps
+everything on one machine.
 
 ## Links
 

@@ -1,4 +1,4 @@
-import { baseURL } from "@/resources";
+import { site } from "@/resources/content";
 
 export const dynamic = "force-static";
 
@@ -9,6 +9,6 @@ export default function robots() {
         userAgent: "*",
       },
     ],
-    sitemap: `${baseURL}/sitemap.xml`,
+    sitemap: `${site.baseURL}/sitemap.xml`,
   };
 }

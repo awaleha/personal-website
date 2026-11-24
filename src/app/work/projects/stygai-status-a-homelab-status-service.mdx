@@ -2,9 +2,8 @@
 title: "stygai-status — a homelab status service"
 publishedAt: "2026-11-18"
 summary: "One Go service answering the questions that matter about a home server: containers up? hardware healthy? when did the last ZFS scrub run? Failures page the phone via Healthchecks → ntfy."
-image: "/images/projects/stygai-status/stygai-vertical.jpg"
-images:
-  - "/images/projects/stygai-status/stygai-vertical.jpg"
+status: "production"
+stack: ["go", "docker", "zfs", "tailscale", "ntfy"]
 ---
 
 ## Overview
@@ -18,62 +17,103 @@ failures reach the phone as push notifications.
 It was written as a deliberate Go learning project and has run in production since day one —
 stdlib-first, with `gopsutil` as the one heavyweight dependency.
 
-## What it monitors
+<figure class="diagram">
+<svg viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" fontFamily="JetBrains Mono, monospace" fontSize="11">
+  <defs>
+    <marker id="ss-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="ss-a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/>
+    </marker>
+    <marker id="ss-a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#f87171"/>
+    </marker>
+  </defs>
 
-- **ZFS** (`GET /api/v1/zfs`) — the `stag` pool: health, size, and last/next scrub dates,
-  read straight from `zpool list` / `zpool status`
-- **System** (`GET /api/v1/system`) — CPU, memory, disks, load, and uptime via `gopsutil`
-- **Docker** (`GET /api/v1/docker`) — every container with its health state, from the
-  Docker socket API
-- **Backups** (`GET /api/v1/backups`) — when the off-site restic backup on oldtown last
-  ran, read from the Healthchecks API with a read-only key
+  <rect x="20" y="20" width="200" height="170" fill="none" stroke="#1f2937" strokeDasharray="4 4" rx="4"/>
+  <text x="30" y="36" fill="#8b98ab" fontSize="9.5" letterSpacing="1">TAILSCALE TAILNET</text>
 
-Plus `GET /healthz` for liveness.
+  <rect x="40" y="55" width="160" height="44" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="52" y="74" fill="#e6edf3">oldtown</text>
+  <text x="52" y="88" fill="#8b98ab" fontSize="9.5">restic wrapper</text>
+  <rect x="40" y="125" width="160" height="44" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="52" y="144" fill="#e6edf3">phone</text>
+  <text x="52" y="158" fill="#8b98ab" fontSize="9.5">ntfy app</text>
 
-## How alerts work
+  <rect x="280" y="80" width="130" height="56" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="292" y="104" fill="#e6edf3">traefik</text>
+  <text x="292" y="120" fill="#8b98ab" fontSize="9.5">tailnet only</text>
 
-Failures don't just sit in a log file. The Homepage dashboard polls the API and turns
-widgets red; separately, cron scripts ping Healthchecks with start/exit signals, and
-Healthchecks fires alerts into ntfy, which pushes to the phone. A small companion binary,
-`notify`, lets any script on the box send a push with one command:
+  <rect x="470" y="30" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="482" y="52" fill="#e6edf3">healthchecks</text>
+  <text x="482" y="68" fill="#8b98ab" fontSize="9.5">/hc</text>
+  <rect x="470" y="120" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="482" y="142" fill="#e6edf3">ntfy</text>
+  <text x="482" y="158" fill="#8b98ab" fontSize="9.5">/ntfy</text>
 
-```sh
-go run ./cmd/notify --topic alerts "backup done"
-```
+  <rect x="40" y="240" width="150" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="52" y="264" fill="#e6edf3">cron scripts</text>
 
-## Architecture
+  <rect x="280" y="250" width="140" height="60" fill="#0a0e14" stroke="#22d3ee" rx="3"/>
+  <text x="292" y="274" fill="#e6edf3">stygai-status</text>
+  <text x="292" y="290" fill="#8b98ab" fontSize="9.5">internal network only</text>
 
-```text
-                        Tailscale (tailnet)
-    oldtown (restic wrapper) ────────────┐
-    phone (ntfy app) ────────────────────┤
-                                         ▼
-               traefik                    (tailnet only)
-                    │           │
-               /hc  │           │  /ntfy
-                    ▼           ▼
-             healthchecks ──alert──► ntfy
-                    ▲
-      ping /start /exit (curl) from cron scripts
-                    │
-   homepage ◄──customapi── stygai-status (internal network only)
-                 ├── zpool list / zpool status ──► pool stag
-                 ├── gopsutil ───────────────────► cpu, ram, disks, load
-                 ├── docker socket API ──────────► containers
-                 └── healthchecks API ───────────► last restic backup
-```
+  <rect x="470" y="250" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="482" y="272" fill="#e6edf3">homepage</text>
+  <text x="482" y="288" fill="#8b98ab" fontSize="9.5">dashboard</text>
+
+  <rect x="40" y="370" width="110" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="52" y="394" fill="#e6edf3">zpool list</text>
+  <rect x="170" y="370" width="110" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="182" y="394" fill="#e6edf3">gopsutil</text>
+  <rect x="300" y="370" width="110" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="312" y="394" fill="#e6edf3">docker sock</text>
+  <rect x="430" y="370" width="110" height="40" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="442" y="394" fill="#e6edf3">hc api (ro)</text>
+
+  <path d="M200 77 H280" stroke="#1f2937" marker-end="url(#ss-a)"/>
+  <path d="M200 147 H280" stroke="#1f2937" marker-end="url(#ss-a)"/>
+  <path d="M410 95 C 440 95 440 55 470 55" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <path d="M410 133 C 440 133 440 145 470 145" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <path d="M545 80 V120" stroke="#f87171" marker-end="url(#ss-a-red)"/>
+  <text x="552" y="104" fill="#f87171" fontSize="9.5">alert</text>
+  <path d="M115 240 C 115 200 350 55 470 55" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <text x="180" y="215" fill="#8b98ab" fontSize="9.5">ping /start /exit</text>
+  <path d="M470 275 H420" stroke="#22d3ee" marker-end="url(#ss-a-cyan)"/>
+  <text x="420" y="268" fill="#22d3ee" fontSize="9.5">customapi</text>
+  <path d="M95 370 C 95 340 350 330 350 310" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <path d="M225 370 C 225 340 350 330 350 310" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <path d="M355 370 C 355 340 350 330 350 310" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+  <path d="M485 370 C 485 340 350 330 350 310" stroke="#1f2937" fill="none" marker-end="url(#ss-a)"/>
+
+  <text x="280" y="76" fill="#8b98ab" fontSize="9.5" letterSpacing="1">HTTPS · SNI ROUTING</text>
+  <text x="280" y="338" fill="#8b98ab" fontSize="9.5" letterSpacing="1">DOCKER NETWORK · NO HOST PORTS</text>
+</svg>
+<figcaption>how a failure becomes a notification: services ping healthchecks, healthchecks alerts ntfy, ntfy pushes to the phone</figcaption>
+</figure>
+
+## The instruments
+
+| Endpoint | What it reports |
+|---|---|
+| `GET /api/v1/system` | CPU, memory, disks, load average, uptime |
+| `GET /api/v1/zfs` | Pool `stag`: health, size, last and next scrub |
+| `GET /api/v1/docker` | Every container with its running state and healthcheck |
+| `GET /api/v1/backups` | Last run of the oldtown restic check, straight from the Healthchecks API |
+| `GET /healthz` | Liveness, used by Docker's healthcheck |
 
 ## Design decisions
 
 - **Tailnet-only, no host ports.** The API publishes no ports on the host — it lives on the
-  internal Docker network and Homepage fetches it server-side. Access control is the tailnet
-  plus the network boundary.
+  internal Docker network and the dashboard fetches it server-side. Access control is the
+  tailnet plus the network boundary.
 - **Read-only everything.** `/proc`, `/sys`, and the Docker socket are mounted read-only;
   `/dev/zfs` is passed through for pool queries; Healthchecks uses a read-only API key.
 - **Stdlib-first.** `gopsutil` is the only heavyweight dependency — HTTP, JSON, and flags
   are all standard library.
 - **Two small binaries.** `stygai-status` serves the API; `notify` is a one-shot CLI for
-  scripts. `make build` and `make test` cover both.
+  scripts, so cron jobs can push a message without speaking JSON.
 - **Self-policing container.** The Docker healthcheck pings the binary itself, so Docker
   knows the service is unhealthy before the dashboard does.
 - **CI from the first commit.** GitHub Actions runs the test suite on every push.

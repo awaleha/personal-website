@@ -1,7 +1,9 @@
 ---
-title: "LoL Match Data App"
+title: "lol-match-data-app"
 publishedAt: "2025-12-09"
-summary: "A Next.js app for exploring League of Legends match data, backed by Riot's developer API."
+summary: "A Next.js app for exploring League of Legends match data on Riot's developer API, with a Python companion for the data plumbing."
+status: "archived"
+stack: ["next.js", "riot api", "python"]
 ---
 
 ## Overview
@@ -9,6 +11,38 @@ summary: "A Next.js app for exploring League of Legends match data, backed by Ri
 A Next.js web app built on top of Riot's developer API for exploring League of Legends
 match data. The companion repository [Riot-API-Testing](https://github.com/awaleha/Riot-API-Testing)
 holds the backend scripts used for data manipulation.
+
+This one was an exploration project: learn a public API, pull interesting data out of it,
+and get it onto a screen. It retired once the interesting questions had been answered —
+which is a fine end for a sandbox.
+
+<figure class="diagram">
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" fontFamily="JetBrains Mono, monospace" fontSize="11">
+  <defs>
+    <marker id="lol-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="75" width="150" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="42" y="97" fill="#e6edf3">riot dev api</text>
+  <text x="42" y="113" fill="#8b98ab" fontSize="9.5">match history, stats</text>
+
+  <rect x="245" y="75" width="160" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="257" y="97" fill="#e6edf3">python sandbox</text>
+  <text x="257" y="113" fill="#8b98ab" fontSize="9.5">riot-api-testing</text>
+
+  <rect x="470" y="75" width="140" height="50" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="482" y="97" fill="#e6edf3">next.js app</text>
+  <text x="482" y="113" fill="#8b98ab" fontSize="9.5">explore + visualize</text>
+
+  <path d="M180 100 H245" stroke="#1f2937" marker-end="url(#lol-a)"/>
+  <path d="M405 100 H470" stroke="#1f2937" marker-end="url(#lol-a)"/>
+
+  <text x="30" y="170" fill="#8b98ab" fontSize="9.5">retired — served its purpose as an api-exploration sandbox</text>
+</svg>
+<figcaption>notebook experiments feeding a small app — the point was the API, not the product</figcaption>
+</figure>
 
 ## Links
 

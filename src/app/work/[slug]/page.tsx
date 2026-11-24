@@ -1,143 +1,94 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPosts } from "@/utils/utils";
-import {
-  Meta,
-  Schema,
-  AvatarGroup,
-  Button,
-  Column,
-  Flex,
-  Heading,
-  Media,
-  Text,
-  SmartLink,
-  Row,
-  Avatar,
-  Line,
-} from "@once-ui-system/core";
-import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
-import { ScrollToHash, CustomMDX } from "@/components";
-import { Metadata } from "next";
-import { Projects } from "@/components/work/Projects";
+import type { Metadata } from "next";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getPosts } from "@/lib/posts";
+import { site } from "@/resources/content";
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+const DIR = ["src", "app", "work", "projects"];
+
+export function generateStaticParams() {
+  return getPosts(DIR).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string | string[] }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug)
-    ? routeParams.slug.join("/")
-    : routeParams.slug || "";
-
-  const posts = getPosts(["src", "app", "work", "projects"]);
-  let post = posts.find((post) => post.slug === slugPath);
-
+  const { slug } = await params;
+  const post = getPosts(DIR).find((p) => p.slug === slug);
   if (!post) return {};
-
-  return Meta.generate({
-    title: post.metadata.title,
-    description: post.metadata.summary,
-    baseURL: baseURL,
-    image: post.metadata.image || "/images/og/awale-hassan.jpg",
-    path: `${work.path}/${post.slug}`,
-  });
+  const title = post.metadata.title ?? slug;
+  const description = post.metadata.summary ?? site.description;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${site.baseURL}/work/${slug}` },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime: post.metadata.publishedAt,
+    },
+  };
 }
 
-export default async function Project({
+export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ slug: string | string[] }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug)
-    ? routeParams.slug.join("/")
-    : routeParams.slug || "";
+  const { slug } = await params;
+  const post = getPosts(DIR).find((p) => p.slug === slug);
+  if (!post) notFound();
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
-
-  if (!post) {
-    notFound();
-  }
-
-  const avatars =
-    post.metadata.team?.map((person) => ({
-      src: person.avatar,
-    })) || [];
+  const date = post.metadata.publishedAt
+    ? new Date(post.metadata.publishedAt).toLocaleDateString("en-CA", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+  const status = (post.metadata.status as string | undefined) ?? "";
+  const stack = Array.isArray(post.metadata.stack) ? post.metadata.stack.join(" · ") : "";
 
   return (
-    <Column as="section" maxWidth="m" horizontal="center" gap="l">
-      <Schema
-        as="blogPosting"
-        baseURL={baseURL}
-        path={`${work.path}/${post.slug}`}
-        title={post.metadata.title}
-        description={post.metadata.summary}
-        datePublished={post.metadata.publishedAt}
-        dateModified={post.metadata.publishedAt}
-        image={post.metadata.image || "/images/og/awale-hassan.jpg"}
-        author={{
-          name: person.name,
-          url: `${baseURL}${about.path}`,
-          image: `${baseURL}${person.avatar}`,
-        }}
-      />
-      <Column maxWidth="s" gap="16" horizontal="center" align="center">
-        <SmartLink href="/work">
-          <Text variant="label-strong-m">Projects</Text>
-        </SmartLink>
-        <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-          {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
-        </Text>
-        <Heading variant="display-strong-m">{post.metadata.title}</Heading>
-      </Column>
-      <Row marginBottom="32" horizontal="center">
-        <Row gap="16" vertical="center">
-          {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="s" />}
-          <Text variant="label-default-m" onBackground="brand-weak">
-            {post.metadata.team?.map((member, idx) => (
-              <span key={idx}>
-                {idx > 0 && (
-                  <Text as="span" onBackground="neutral-weak">
-                    ,{" "}
-                  </Text>
-                )}
-                <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
-              </span>
-            ))}
-          </Text>
-        </Row>
-      </Row>
-      {post.metadata.images.length > 0 && (
-        <Media
-          priority
-          aspectRatio="16 / 9"
-          radius="m"
-          style={{ maxWidth: 320 }}
-          sizes="320px"
-          alt="image"
-          src={post.metadata.images[0]}
-        />
-      )}
-      <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
-        <CustomMDX source={post.content} />
-      </Column>
-      <Column fillWidth gap="40" horizontal="center" marginTop="40">
-        <Line maxWidth="40" />
-        <Heading as="h2" variant="heading-strong-xl" marginBottom="24">
-          Related projects
-        </Heading>
-        <Projects exclude={[post.slug]} range={[2]} />
-      </Column>
-      <ScrollToHash />
-    </Column>
+    <article className="pt-14 md:pt-24">
+      <header className="max-w-[40rem]">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <Link href="/work" className="mono-label transition-colors hover:text-cyan">
+            work
+          </Link>
+          <span className="mono-label text-mute">/</span>
+          {date && <span className="mono-label">{date}</span>}
+          {status && (
+            <span className={`mono-label ${status === "production" ? "text-cyan" : ""}`}>
+              {status}
+            </span>
+          )}
+        </div>
+        <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+          {post.metadata.title ?? slug}
+        </h1>
+        {post.metadata.summary && (
+          <p className="mt-4 text-lg leading-relaxed text-mute">
+            {post.metadata.summary as string}
+          </p>
+        )}
+        {stack && <p className="mono-label mt-5">{stack}</p>}
+      </header>
+      <div className="machine-prose mt-12">
+        <MDXRemote source={post.content} />
+      </div>
+      <nav className="mt-20 flex justify-between border-t border-line pt-6 text-sm">
+        <Link href="/work" className="link-quiet">
+          all work
+        </Link>
+        <Link href="/" className="link-quiet">
+          home
+        </Link>
+      </nav>
+    </article>
   );
 }

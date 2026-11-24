@@ -1,15 +1,15 @@
-import { Column, Heading, Text } from "@once-ui-system/core";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <Column as="section" fill center paddingBottom="160">
-      <Text marginBottom="s" variant="display-strong-xl">
-        404
-      </Text>
-      <Heading marginBottom="l" variant="display-default-xs">
-        Page Not Found
-      </Heading>
-      <Text onBackground="neutral-weak">The page you are looking for does not exist.</Text>
-    </Column>
+    <div className="flex min-h-[50vh] flex-col items-start justify-center">
+      <p className="mono-label text-alarm">404 — no such route</p>
+      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+        that page is not in the routing table
+      </h1>
+      <Link href="/" className="link-quiet mt-8">
+        home
+      </Link>
+    </div>
   );
 }

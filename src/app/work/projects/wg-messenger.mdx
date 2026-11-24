@@ -1,7 +1,9 @@
 ---
 title: "wg-messenger"
 publishedAt: "2026-05-05"
-summary: "A Go-based peer-to-peer terminal messenger that sends messages over a private WireGuard network."
+summary: "A Go-based peer-to-peer terminal messenger that sends messages over a private WireGuard network — no central server, no public listener."
+status: "in progress"
+stack: ["go", "wireguard", "sqlite"]
 ---
 
 ## Overview
@@ -12,6 +14,41 @@ directly between machines with no central server, and everything runs from the t
 
 WireGuard handles all of the cryptography; wg-messenger deliberately doesn't reimplement it.
 The Go app provides the CLI, the daemon, the message protocol, storage, and diagnostics.
+
+<figure class="diagram">
+<svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" fontFamily="JetBrains Mono, monospace" fontSize="11">
+  <defs>
+    <marker id="wg-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/>
+    </marker>
+    <marker id="wg-a-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+
+  <rect x="30" y="40" width="210" height="120" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="42" y="62" fill="#e6edf3">oldtown — wgmsg daemon</text>
+  <text x="42" y="82" fill="#8b98ab" fontSize="9.5">cli · inbox · sqlite history</text>
+  <text x="42" y="100" fill="#8b98ab" fontSize="9.5">offline queue + retry</text>
+  <text x="42" y="122" fill="#8b98ab" fontSize="9.5">identity: private key, peer map</text>
+
+  <rect x="400" y="40" width="210" height="120" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="412" y="62" fill="#e6edf3">stygai — wgmsg daemon</text>
+  <text x="412" y="82" fill="#8b98ab" fontSize="9.5">cli · inbox · sqlite history</text>
+  <text x="412" y="100" fill="#8b98ab" fontSize="9.5">offline queue + retry</text>
+  <text x="412" y="122" fill="#8b98ab" fontSize="9.5">identity: private key, peer map</text>
+
+  <path d="M240 90 H400" stroke="#22d3ee" strokeDasharray="6 4" marker-end="url(#wg-a)"/>
+  <text x="255" y="82" fill="#22d3ee" fontSize="9.5">wireguard tunnel — wg0</text>
+  <path d="M400 110 H240" stroke="#1f2937" marker-end="url(#wg-a-2)"/>
+  <text x="252" y="128" fill="#8b98ab" fontSize="9.5">ack / delivery status</text>
+
+  <text x="30" y="200" fill="#8b98ab" fontSize="9.5">wgmsg send bob "hello over wireguard"</text>
+  <text x="30" y="216" fill="#8b98ab" fontSize="9.5">peers are addressed by name, keyed by wireguard public key</text>
+  <text x="30" y="232" fill="#8b98ab" fontSize="9.5">no central server — messages exist only at the two endpoints</text>
+</svg>
+<figcaption>messages ride an existing tunnel; the app owns protocol, storage and diagnostics — not crypto</figcaption>
+</figure>
 
 ## How it works
 

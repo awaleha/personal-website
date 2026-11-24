@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-11-24T21:40:12.982Z",
+  "system": {
+    "hostname": "a00038981f86",
+    "cpu_pct": 22.28,
+    "cpu_pct_percpu": {
+      "C0": 19.15,
+      "C1": 22,
+      "C2": 22.45,
+      "C3": 25.53
+    },
+    "mem_used": 13674012672,
+    "mem_total": 16548528128,
+    "uptime": 1142038,
+    "disk_main": {
+      "path": "/",
+      "used": 57170227200,
+      "total": 501386043392,
+      "used_percent": 12.01
+    },
+    "disk_stag": {
+      "path": "/mnt/stag",
+      "used": 29556342784,
+      "total": 10396465627136,
+      "used_percent": 0.28
+    },
+    "disk_stag_free": 10366909284352,
+    "load_avg": {
+      "load_1": 1.08,
+      "load_5": 0.74,
+      "load_15": 0.7
+    }
+  },
+  "zfs": {
+    "name": "stag",
+    "health": "ONLINE",
+    "size_bytes": 11991548690432,
+    "free_bytes": 10504347987968,
+    "cap_pct": 12,
+    "last_scrub": "2026-11-23T07:37:16Z",
+    "scrub_errors": 0,
+    "next_scrub": "2026-11-30T05:57:35Z"
+  },
+  "backups": {
+    "name": "oldtown restic",
+    "status": "up",
+    "last_success": "8h 30m ago"
+  },
+  "docker": {
+    "total": 32,
+    "running": 32,
+    "unhealthy": 0
+  }
+}
