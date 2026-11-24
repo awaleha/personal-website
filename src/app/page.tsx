@@ -11,7 +11,7 @@ export default function Home() {
       <section className="pt-14 md:pt-24">
         <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_26rem]">
           <div className="rise">
-            <h1 className="max-w-[15ch] font-display text-[2.75rem] font-semibold leading-[1.04] tracking-tight md:text-[3.9rem]">
+            <h1 className="whitespace-pre-line font-display text-[2.75rem] font-semibold leading-[1.04] tracking-tight md:text-[3.9rem]">
               {home.headline}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-mute">{home.subline}</p>

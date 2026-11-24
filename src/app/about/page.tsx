@@ -25,7 +25,7 @@ export default function About() {
             height={192}
             className="w-48 rounded-[3px] border border-line"
           />
-          <figcaption className="mono-label mt-2.5">{person.location.toLowerCase()}</figcaption>
+          <figcaption className="mono-label mt-2.5">{person.location}</figcaption>
         </figure>
         <div className="max-w-[40rem] space-y-5 text-lg leading-relaxed">
           {about.intro.map((paragraph, i) => (

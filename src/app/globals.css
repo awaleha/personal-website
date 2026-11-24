@@ -22,7 +22,11 @@
   }
 
   body {
-    background: var(--color-ink);
+    background:
+      radial-gradient(56rem 32rem at 78% -12%, rgb(34 211 238 / 0.09), transparent 62%),
+      radial-gradient(40rem 26rem at -8% 108%, rgb(34 211 238 / 0.05), transparent 60%),
+      linear-gradient(180deg, #0d1524 0%, var(--color-ink) 48%, #070a11 100%);
+    background-attachment: fixed;
     color: var(--color-text);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
@@ -39,12 +43,11 @@
 }
 
 @layer components {
-  /* instrument labels: small, tracked, uppercase — mono is machine language here */
+  /* instrument labels: small, tracked — mono is machine language here */
   .mono-label {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--color-mute);
   }
 
@@ -150,7 +153,6 @@
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--color-mute);
     text-align: left;
     border-bottom: 1px solid var(--color-line);

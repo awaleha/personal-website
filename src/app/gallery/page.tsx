@@ -3,7 +3,7 @@ import { gallery, site } from "@/resources/content";
 
 export const metadata: Metadata = {
   title: "gallery",
-  description: "Pictures from the desk and the apartment.",
+  description: "pictures from the desk and the apartment.",
   alternates: { canonical: `${site.baseURL}/gallery` },
 };
 
@@ -13,7 +13,7 @@ export default function Gallery() {
       <header className="pt-14 md:pt-24">
         <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">gallery</h1>
         <p className="mt-4 max-w-xl leading-relaxed text-mute">
-          Pictures from the desk and the apartment — {gallery.images.length} so far, more as the
+          pictures from the desk and the apartment — {gallery.images.length} so far, more as the
           phone fills up.
         </p>
       </header>
