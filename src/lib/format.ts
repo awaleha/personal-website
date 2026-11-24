@@ -15,7 +15,7 @@ export function fmtPct(n: number): string {
 
 export function fmtUntil(iso: string): string {
   const target = new Date(iso).getTime();
-  if (Number.isNaN(target)) return "—";
+  if (Number.isNaN(target)) return "n/a";
   const ms = target - Date.now();
   if (ms <= 0) return "due";
   const days = Math.ceil(ms / 86400000);

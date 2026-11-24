@@ -38,8 +38,8 @@ export function TopBar() {
           </span>
           <Link
             href="/uses"
-            title="system status — stygai"
-            aria-label="system status — stygai"
+            title="system status: stygai"
+            aria-label="system status: stygai"
             className="size-2 rounded-full bg-cyan"
           />
         </div>

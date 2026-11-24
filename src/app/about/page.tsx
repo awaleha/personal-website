@@ -5,7 +5,7 @@ import { about, person, site } from "@/resources/content";
 
 export const metadata: Metadata = {
   title: "about",
-  description: `${person.name}, software engineer in Toronto — seven years of banking and fintech software, and the self-hosted stack that runs from the apartment.`,
+  description: `${person.name}, software engineer in Toronto. seven years of banking and fintech software, and the self-hosted stack that runs from the apartment.`,
   alternates: { canonical: `${site.baseURL}/about` },
 };
 

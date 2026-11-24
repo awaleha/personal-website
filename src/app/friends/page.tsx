@@ -4,7 +4,7 @@ import { friends, site } from "@/resources/content";
 export const metadata: Metadata = {
   title: "friends",
   description:
-    "links i hand to people i trust — the apps on this domain that friends get access to.",
+    "links i hand to people i trust: the apps on this domain that friends get access to.",
   alternates: { canonical: `${site.baseURL}/friends` },
 };
 

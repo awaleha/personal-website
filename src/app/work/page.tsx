@@ -4,7 +4,7 @@ import { projects, site } from "@/resources/content";
 
 export const metadata: Metadata = {
   title: "work",
-  description: `projects by Awale Hassan — ${projects.length} things built, from a homelab status service to banking dashboards.`,
+  description: `projects by Awale Hassan, from a homelab status service to banking dashboards.`,
   alternates: { canonical: `${site.baseURL}/work` },
 };
 
@@ -15,7 +15,7 @@ export default function Work() {
       <header className="pt-14 md:pt-24">
         <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">work</h1>
         <p className="mt-4 max-w-xl leading-relaxed text-mute">
-          things i've built, newest first. the case studies carry the detail —
+          things i've built, newest first. the case studies carry the detail:
           architecture, decisions, and the parts that didn't survive contact
           with reality.
         </p>

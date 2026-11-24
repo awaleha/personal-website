@@ -96,22 +96,22 @@ function cellsFor(data: StatusData | null): CellSpec[] {
   return [
     {
       label: "stygai",
-      value: system ? `up ${fmtUptime(system.uptime)}` : "—",
+      value: system ? `up ${fmtUptime(system.uptime)}` : "n/a",
       liveDot: true,
     },
-    { label: "cpu", value: system ? fmtPct(system.cpu_pct) : "—" },
+    { label: "cpu", value: system ? fmtPct(system.cpu_pct) : "n/a" },
     {
       label: zfs?.name ?? "pool",
-      value: zfs ? zfs.health.toLowerCase() : "—",
+      value: zfs ? zfs.health.toLowerCase() : "n/a",
       alarm: !!zfs && zfs.health !== "ONLINE",
     },
     {
       label: "next scrub",
-      value: zfs?.next_scrub ? fmtUntil(zfs.next_scrub) : "—",
+      value: zfs?.next_scrub ? fmtUntil(zfs.next_scrub) : "n/a",
     },
     {
       label: "backup",
-      value: backups ? backups.last_success : "—",
+      value: backups ? backups.last_success : "n/a",
       alarm: !!backups && backups.status !== "up",
     },
     {
@@ -119,7 +119,7 @@ function cellsFor(data: StatusData | null): CellSpec[] {
       value:
         docker && docker.running !== null && docker.total !== null
           ? `${docker.running}/${docker.total} up`
-          : "—",
+          : "n/a",
       alarm: !!docker && (docker.unhealthy ?? 0) > 0,
     },
   ];
@@ -144,7 +144,7 @@ export function StatusStrip() {
     return (
       <div className="border-y border-line py-4">
         <p className="font-mono text-[0.9375rem] text-alarm">
-          status unreachable — no live link, no snapshot
+          status unreachable: no live link, no snapshot
         </p>
       </div>
     );

@@ -1,5 +1,5 @@
 ---
-title: "stygai-status — a homelab status service"
+title: "stygai-status: a homelab status service"
 publishedAt: "2026-11-18"
 summary: "one Go service answering the questions that matter about a home server: containers up? hardware healthy? when did the last ZFS scrub run? failures page the phone via Healthchecks → ntfy."
 status: "production"
@@ -8,13 +8,13 @@ stack: ["go", "docker", "zfs", "tailscale", "ntfy"]
 
 ## overview
 
-the home server sits in a corner of the house with no monitor attached, and "is the box okay?"
-used to mean an SSH session and a handful of commands. stygai-status is the answer: one Go
+the home server sits in a corner of the house with no monitor attached. "is the box okay?"
+used to mean an ssh session and a handful of commands. stygai-status is the answer: one Go
 service that turns the machine's own internals into a tiny JSON API, so a dashboard shows
-container health, hardware state, ZFS pool status, and backup freshness at a glance — and
+container health, hardware state, ZFS pool status, and backup freshness at a glance.
 failures reach the phone as push notifications.
 
-it was written as a deliberate Go learning project and has run in production since day one —
+it was written as a deliberate Go learning project and has run in production since day one.
 stdlib-first, with `gopsutil` as the one heavyweight dependency.
 
 <figure class="diagram">
@@ -105,12 +105,12 @@ stdlib-first, with `gopsutil` as the one heavyweight dependency.
 
 ## design decisions
 
-- **tailnet-only, no host ports.** the API publishes no ports on the host — it lives on the
+- **tailnet-only, no host ports.** the API publishes no ports on the host: it lives on the
   internal Docker network and the dashboard fetches it server-side. access control is the
   tailnet plus the network boundary.
 - **read-only everything.** `/proc`, `/sys`, and the Docker socket are mounted read-only;
   `/dev/zfs` is passed through for pool queries; Healthchecks uses a read-only API key.
-- **stdlib-first.** `gopsutil` is the only heavyweight dependency — HTTP, JSON, and flags
+- **stdlib-first.** `gopsutil` is the only heavyweight dependency: HTTP, JSON, and flags
   are all standard library.
 - **two small binaries.** `stygai-status` serves the API; `notify` is a one-shot CLI for
   scripts, so cron jobs can push a message without speaking JSON.
@@ -122,7 +122,7 @@ stdlib-first, with `gopsutil` as the one heavyweight dependency.
 
 this was my first real Go service, and the structure it forced was the biggest lesson:
 small internal packages (`zfs`, `system`, `docker`, `healthchecks`, `notifier`) with a test
-per package made the code easy to grow without rewriting. interfaces earned their keep too —
+per package made the code easy to grow without rewriting. interfaces earned their keep too.
 the notifier and the Healthchecks client are simple enough to fake, which made the test
 suite fast and the alerting path trustworthy enough to depend on for real.
 

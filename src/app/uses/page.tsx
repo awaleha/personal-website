@@ -4,7 +4,7 @@ import { site, uses } from "@/resources/content";
 export const metadata: Metadata = {
   title: "uses",
   description:
-    "the stack Awale Hassan actually runs — hardware, services, and software, reported by the machines themselves.",
+    "the stack Awale Hassan actually runs: hardware, services, software. reported by the machines themselves.",
   alternates: { canonical: `${site.baseURL}/uses` },
 };
 

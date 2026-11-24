@@ -1,12 +1,12 @@
 /**
  * Site content — plain data, no JSX.
  * The single place to edit copy, nav, projects, gallery and /uses.
- * Style: lowercase everywhere except proper nouns.
+ * Style: lowercase everywhere except proper nouns, no em dashes.
  */
 
 export const site = {
   baseURL: "https://awalehassan.com",
-  title: "Awale Hassan — software engineer",
+  title: "Awale Hassan · software engineer",
   description:
     "software engineer in Toronto. seven years of banking software by day; a self-hosted stack, reported live from the server in my apartment, by night.",
 };
@@ -36,10 +36,10 @@ export const nav = [
 export const home = {
   headline: "internet,\nwrit small.",
   subline:
-    "full-stack engineer in Toronto — seven years of banking software by day, a self-hosted stack by night. this page ships from Cloudflare's edge; the instruments below report from the server in my apartment.",
+    "full-stack engineer in Toronto. seven years of banking software by day, a self-hosted stack by night. this page ships from Cloudflare's edge; the instruments below report from the server in my apartment.",
   tower: {
     src: "/images/stygai-tower.jpg",
-    alt: "stygai — the homelab server, a compact tower",
+    alt: "stygai, the homelab server, a compact tower",
     caption: "stygai · Intel N100 · 16 gb · zfs stag 10.9 tb",
   },
 };
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     slug: "stygai-status-a-homelab-status-service",
     title: "stygai-status",
     summary:
-      "one Go service that turns the homelab's internals into a JSON API — containers, ZFS, hardware, backups — and pages my phone when something breaks.",
+      "one Go service that turns the homelab's internals into a JSON API: containers, ZFS, hardware, backups. it pages my phone when something breaks.",
     publishedAt: "2026-11-18",
     status: "production",
     stack: ["go", "docker", "zfs", "tailscale"],
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     slug: "wg-messenger",
     title: "wg-messenger",
     summary:
-      "a private messenger that rides my WireGuard network — no public listener, messages only ever travel inside the tunnel.",
+      "a private messenger that rides my WireGuard network. no public listener, messages only ever travel inside the tunnel.",
     publishedAt: "2026-05-05",
     status: "in progress",
     stack: ["go", "wireguard"],
@@ -91,6 +91,14 @@ export const projects: Project[] = [
     stack: ["next.js", "riot api", "python"],
   },
 ];
+
+export type GalleryImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
 
 export const gallery = {
   title: "gallery",
@@ -117,18 +125,124 @@ export const gallery = {
       height: 516,
     },
     {
-      src: "/images/gallery/tower-vertical.jpg",
-      alt: "the homelab tower, upright",
-      caption: "stygai, upright",
-      width: 427,
-      height: 640,
-    },
-    {
       src: "/images/gallery/awale.jpg",
       alt: "portrait of Awale",
       caption: "awale, 2021",
       width: 818,
       height: 613,
+    },
+    {
+      src: "/images/gallery/img_4056.jpg",
+      alt: "photo",
+      caption: "2026",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_6226.jpg",
+      alt: "photo",
+      caption: "2025",
+      width: 1600,
+      height: 1067,
+    },
+    {
+      src: "/images/gallery/img_1678.jpg",
+      alt: "photo",
+      caption: "2025",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_1983.jpg",
+      alt: "photo",
+      caption: "2025",
+      width: 1600,
+      height: 1200,
+    },
+    {
+      src: "/images/gallery/img_1578.jpg",
+      alt: "photo",
+      caption: "2025",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_0610.jpg",
+      alt: "photo",
+      caption: "2024",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_5413.jpg",
+      alt: "photo",
+      caption: "2021",
+      width: 1067,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_5412.jpg",
+      alt: "photo",
+      caption: "2021",
+      width: 1067,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_4153.jpg",
+      alt: "photo",
+      caption: "2021",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/005007240017.jpg",
+      alt: "photo",
+      caption: "",
+      width: 1600,
+      height: 1061,
+    },
+    {
+      src: "/images/gallery/16107599_1488872577820359_322571038_o.jpg",
+      alt: "photo",
+      caption: "",
+      width: 1600,
+      height: 1069,
+    },
+    {
+      src: "/images/gallery/5bdd6df2-1aac-42a0-83a3-1738904269de.jpg",
+      alt: "photo",
+      caption: "",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/7f74227f-e564-40f2-a1bf-8e1a944240d9.jpg",
+      alt: "photo",
+      caption: "",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/img_2464.jpg",
+      alt: "photo",
+      caption: "",
+      width: 720,
+      height: 1280,
+    },
+  ],
+};
+
+export const friends = {
+  title: "friends",
+  intro:
+    "this page is public. the links are not: each app has its own login, and i'm the one who hands them out.",
+  apps: [
+    {
+      name: "seerr",
+      href: "https://seerr.awalehassan.com",
+      host: "seerr.awalehassan.com",
+      description: "request movies and shows. i approve them, the stack fetches them.",
+      status: "open",
     },
   ],
 };
@@ -136,7 +250,7 @@ export const gallery = {
 export const uses = {
   title: "uses",
   intro:
-    "the stack i actually run — hardware, services, and software — as of november 2026. the hardware numbers are reported by the machines themselves.",
+    "the stack i actually run: hardware, services, and software, as of november 2026. the hardware numbers are reported by the machines themselves.",
   sections: [
     {
       title: "hardware",
@@ -148,8 +262,7 @@ export const uses = {
         },
         {
           name: "oldtown",
-          detail:
-            "the daily-driver workstation — backups land on stygai via restic every night",
+          detail: "the daily-driver workstation. backups land on stygai via restic every night",
         },
         { name: "phone", detail: "iPhone, Tailscale on always" },
       ],
@@ -173,7 +286,7 @@ export const uses = {
         },
         {
           name: "stygai-status",
-          detail: "the status API this site reads — wrote it myself, in Go",
+          detail: "the status API this site reads. wrote it myself, in Go",
         },
         {
           name: "homepage, diun, Home Assistant",
@@ -192,26 +305,10 @@ export const uses = {
   ],
 };
 
-export const friends = {
-  title: "friends",
-  intro:
-    "this page is public. the links are not — each app has its own login, and i'm the one who hands them out.",
-  apps: [
-    {
-      name: "seerr",
-      href: "https://seerr.awalehassan.com",
-      host: "seerr.awalehassan.com",
-      description:
-        "request movies and shows. i approve them, the stack fetches them.",
-      status: "open",
-    },
-  ],
-};
-
 export const about = {
   intro: [
-    "i am a full-stack software developer with seven years of experience building and deploying web applications in banking and fintech. i currently work at Propel Holdings, where i led front-end development for the FreshLine credit brand launch — React and TypeScript dashboards backed by Spring Boot — and refactored a compliance-critical email batching pipeline. before Propel, i spent six years at Home Trust Financial building enterprise content management applications with Next.js, Java Spring, and MySQL, and automating AWS deployments.",
-    "when not writing code, i run a small home lab: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain — built with Docker Compose, Traefik, and a healthy respect for keeping things boring.",
+    "i am a full-stack software developer with seven years of experience building and deploying web applications in banking and fintech. i currently work at Propel Holdings, where i led front-end development for the FreshLine credit brand launch: React and TypeScript dashboards backed by Spring Boot, plus a refactor of a compliance-critical email batching pipeline. before Propel, i spent six years at Home Trust Financial building enterprise content management apps with Next.js, Java Spring, and MySQL, and automating AWS deployments.",
+    "when not writing code, i run a small home lab: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain. built with Docker Compose, Traefik, and a healthy respect for keeping things boring.",
   ],
   skills: [
     {
@@ -225,14 +322,13 @@ export const about = {
     },
     {
       name: "TypeScript & Next.js",
-      detail:
-        "React and Redux frontends at Propel; Next.js applications at Home Trust — and this site.",
+      detail: "React and Redux frontends at Propel, Next.js applications at Home Trust, and this site.",
       evidence: null,
     },
     {
       name: "Java & Spring Boot",
       detail:
-        "six years of enterprise Java at Home Trust — Spring, Hibernate, JPA — plus Spring Boot integrations at Propel.",
+        "six years of enterprise Java at Home Trust: Spring, Hibernate, JPA. plus Spring Boot integrations at Propel.",
       evidence: null,
     },
     {
@@ -255,7 +351,7 @@ export const about = {
     {
       name: "self-hosted infrastructure",
       detail:
-        "Docker Compose, Traefik, Cloudflare, Tailscale — every service on this domain rides that stack.",
+        "Docker Compose, Traefik, Cloudflare, Tailscale. every service on this domain rides that stack.",
       evidence: { href: "/uses", label: "the stack" },
     },
   ],
