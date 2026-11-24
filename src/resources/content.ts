@@ -28,8 +28,9 @@ export const social = [
 export const nav = [
   { label: "work", href: "/work" },
   { label: "about", href: "/about" },
-  { label: "gallery", href: "/gallery" },
   { label: "uses", href: "/uses" },
+  { label: "friends", href: "/friends" },
+  { label: "gallery", href: "/gallery" },
 ];
 
 export const home = {
@@ -187,6 +188,22 @@ export const uses = {
         { name: "Tailscale", detail: "the network is the computer" },
         { name: "Bitwarden", detail: "with the vault self-hosted" },
       ],
+    },
+  ],
+};
+
+export const friends = {
+  title: "friends",
+  intro:
+    "links i hand to people i trust. if you're reading this page, you're on the list.",
+  apps: [
+    {
+      name: "seerr",
+      href: "https://seerr.awalehassan.com",
+      host: "seerr.awalehassan.com",
+      description:
+        "request movies and shows. i approve them, the stack fetches them.",
+      status: "open",
     },
   ],
 };
