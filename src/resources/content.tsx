@@ -134,8 +134,8 @@ const about: About = {
           {
             src: "/images/projects/stygai-status/stygai-vertical.jpg",
             alt: "Stygai — the homelab server",
-            width: 240,
-            height: 360,
+            width: 320,
+            height: 320,
           },
         ],
       },

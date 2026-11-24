@@ -32,14 +32,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   return (
     <Column fillWidth gap="m">
-      <Carousel
-        aspectRatio="16 / 9"
-        sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
-          alt: title,
-        }))}
-      />
+      <Column fillWidth style={{ maxWidth: 320 }}>
+        <Carousel
+          aspectRatio="16 / 9"
+          sizes="(max-width: 960px) 100vw, 320px"
+          items={images.map((image) => ({
+            slide: image,
+            alt: title,
+          }))}
+        />
+      </Column>
       <Flex
         s={{ direction: "column" }}
         fillWidth

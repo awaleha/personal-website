@@ -332,13 +332,14 @@ export default function About() {
                             key={index}
                             border="neutral-medium"
                             radius="m"
-                            minWidth={image.width}
-                            height={image.height}
+                            fillWidth
+                            style={{ maxWidth: image.width }}
                           >
                             <Media
                               enlarge
                               radius="m"
-                              sizes={image.width.toString()}
+                              aspectRatio={`${image.width} / ${image.height}`}
+                              sizes={`${image.width}px`}
                               alt={image.alt}
                               src={image.src}
                             />
