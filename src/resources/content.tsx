@@ -8,7 +8,8 @@ const person: Person = {
   role: "Software Engineer",
   avatar: "/images/avatar.jpg",
   email: "awalehassan@gmail.com",
-  location: "America/Toronto", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  location: "Toronto, Canada",
+  timeZone: "America/Toronto", // IANA identifier used for the header clock
   languages: ["English"], // optional: Leave the array empty if you don't want to display languages
 };
 
@@ -38,7 +39,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: "/images/og/home.jpg",
+  image: "/images/og/awale-hassan.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website of ${person.name}, a software engineer based in Toronto`,
@@ -74,7 +75,7 @@ const about: About = {
     subItems: false,
   },
   avatar: {
-    display: false,
+    display: true,
   },
   calendar: {
     display: false,
@@ -129,7 +130,14 @@ const about: About = {
             icon: "go",
           },
         ],
-        images: [],
+        images: [
+          {
+            src: "/images/projects/stygai-status/stygai-vertical.jpg",
+            alt: "Stygai — the homelab server",
+            width: 240,
+            height: 360,
+          },
+        ],
       },
       {
         title: "TypeScript & Next.js",

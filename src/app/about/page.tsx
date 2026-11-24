@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Column,
   Heading,
@@ -22,7 +21,7 @@ export async function generateMetadata() {
     title: about.title,
     description: about.description,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(about.title)}`,
+    image: "/images/og/awale-hassan.jpg",
     path: about.path,
   });
 }
@@ -58,7 +57,7 @@ export default function About() {
         title={about.title}
         description={about.description}
         path={about.path}
-        image={`/api/og/generate?title=${encodeURIComponent(about.title)}`}
+        image="/images/og/awale-hassan.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,
@@ -87,13 +86,30 @@ export default function About() {
             s={{ position: "relative", style: { top: "auto" } }}
             xs={{ style: { top: "auto" } }}
             minWidth="160"
-            paddingX="l"
+            paddingX="m"
             paddingBottom="xl"
             gap="m"
-            flex={3}
+            flex={4}
             horizontal="center"
           >
-            <Avatar src={person.avatar} size="xl" />
+            <Row
+              fillWidth
+              maxWidth={320}
+              padding="4"
+              radius="l"
+              background="brand-alpha-weak"
+              border="brand-alpha-medium"
+              shadow="l"
+            >
+              <Media
+                fillWidth
+                aspectRatio="1 / 1"
+                radius="m"
+                src={person.avatar}
+                alt={`Portrait of ${person.name}`}
+                priority
+              />
+            </Row>
             <Row gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
               {person.location}
@@ -109,7 +125,7 @@ export default function About() {
             )}
           </Column>
         )}
-        <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+        <Column className={styles.blockAlign} flex={8} maxWidth={40}>
           <Column
             id={about.intro.title}
             fillWidth
