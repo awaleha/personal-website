@@ -32,7 +32,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   return (
     <Column fillWidth gap="m">
-      <Column fillWidth style={{ maxWidth: 320 }}>
+      <Column fillWidth style={{ maxWidth: 320, marginInline: "auto" }}>
         <Carousel
           aspectRatio="16 / 9"
           sizes="(max-width: 960px) 100vw, 320px"
