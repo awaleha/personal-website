@@ -55,7 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        <div className="mx-auto flex min-h-screen w-full max-w-[68rem] flex-col px-6">
+        <div className="mx-auto flex min-h-screen w-full max-w-[68rem] flex-col px-4 sm:px-6">
           <TopBar />
           <main className="flex-1">{children}</main>
           <Footer />

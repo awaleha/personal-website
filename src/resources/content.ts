@@ -36,7 +36,7 @@ export const nav = [
 export const home = {
   headline: "internet,\nwrit small.",
   subline:
-    "full-stack engineer in Toronto. seven years of banking software by day, a self-hosted stack by night. this page ships from Cloudflare's edge; the instruments below report from the server in my apartment.",
+    "software engineer in the greatest city north of the 43rd parallel. banking and fintech software savant by day, exhausted self-hosted sysadmin by night. this page ships from Cloudflare's edge; the stats below report live the server on my desk.",
   tower: {
     src: "/images/stygai-tower.jpg",
     alt: "stygai, the homelab server, a compact tower",
@@ -62,6 +62,15 @@ export const projects: Project[] = [
     publishedAt: "2026-11-18",
     status: "production",
     stack: ["go", "docker", "zfs", "tailscale"],
+  },
+  {
+    slug: "personal-website",
+    title: "personal-website",
+    summary:
+      "the site you're reading: a hand-built Next.js static export, with a status strip that reports the homelab from the hero. no template, no component library.",
+    publishedAt: "2026-11-24",
+    status: "production",
+    stack: ["next.js", "typescript", "tailwind css", "mdx", "cloudflare pages"],
   },
   {
     slug: "wg-messenger",
@@ -307,8 +316,8 @@ export const uses = {
 
 export const about = {
   intro: [
-    "i am a full-stack software developer with seven years of experience building and deploying web applications in banking and fintech. i currently work at Propel Holdings, where i led front-end development for the FreshLine credit brand launch: React and TypeScript dashboards backed by Spring Boot, plus a refactor of a compliance-critical email batching pipeline. before Propel, i spent six years at Home Trust Financial building enterprise content management apps with Next.js, Java Spring, and MySQL, and automating AWS deployments.",
-    "when not writing code, i run a small home lab: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain. built with Docker Compose, Traefik, and a healthy respect for keeping things boring.",
+    "i'm a full-stack software engineer with seven years under my belt. the bulk of my experience is building software specialized for banking and fintech. currently working at Propel Holdings Inc., where i translate business ideas into real software for brand launches: React and TypeScript dashboards backed by Spring Boot, while refactoring compliance-critical customer communication pipelines. before Propel, i cut my teeth at Home Trust Financial building content management apps with Next.js, Java Spring, and MySQL, plus automating AWS deployments.",
+    "when not writing code, me and Claude run a small home lab: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain. built with Docker Compose, Traefik, and a healthy respect for keeping things boring.",
   ],
   skills: [
     {

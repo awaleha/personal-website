@@ -66,7 +66,7 @@ export default function Home() {
       </Section>
 
       <Section title="gallery" href="/gallery" linkLabel="all photos">
-        <div className="grid grid-cols-3 gap-4 pt-6">
+        <div className="grid grid-cols-2 gap-4 pt-6 sm:grid-cols-3">
           {gallery.images.slice(0, 3).map((image) => (
             <img
               key={image.src}

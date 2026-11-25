@@ -173,6 +173,9 @@
     background: var(--color-panel);
     padding: 1.25rem;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
   }
   .diagram figcaption {
     margin-top: 0.75rem;
@@ -183,6 +186,12 @@
   .diagram svg {
     max-width: 100%;
     height: auto;
+  }
+  @media (max-width: 639px) {
+    .diagram svg {
+      max-width: none;
+      min-width: 44rem;
+    }
   }
 }
 

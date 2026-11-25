@@ -11,7 +11,7 @@ export function Footer() {
         <StatusLine />
         <div className="flex gap-5 text-sm">
           {social.map((link) => (
-            <a key={link.name} href={link.href} className="link-quiet">
+            <a key={link.name} href={link.href} className="link-quiet inline-block py-1">
               {link.name}
             </a>
           ))}

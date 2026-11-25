@@ -9,19 +9,17 @@ export const metadata: Metadata = {
 };
 
 export default function Work() {
-  const sorted = [...projects].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   return (
     <>
       <header className="pt-14 md:pt-24">
         <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">work</h1>
         <p className="mt-4 max-w-xl leading-relaxed text-mute">
-          things i've built, newest first. the case studies carry the detail:
-          architecture, decisions, and the parts that didn't survive contact
-          with reality.
+          things i've built. the case studies carry the detail: architecture, decisions, and the
+          parts that didn't survive contact with reality.
         </p>
       </header>
       <div className="mt-12 border-t border-line">
-        {sorted.map((project) => (
+        {projects.map((project) => (
           <ProjectRow key={project.slug} project={project} />
         ))}
       </div>
