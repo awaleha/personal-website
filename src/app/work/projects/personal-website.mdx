@@ -1,0 +1,165 @@
+---
+title: "personal-website: the machine room"
+publishedAt: "2026-11-24"
+summary: "the site you're reading. a hand-built Next.js static export on Cloudflare Pages: custom design system, MDX case studies, and a hero strip that reports the homelab without pretending a snapshot is live."
+status: "production"
+stack: ["next.js", "typescript", "tailwind css", "mdx", "cloudflare pages"]
+---
+
+## overview
+
+this is the third version of awalehassan.com. the first two sat on a portfolio
+template: quick to launch, and eventually full of decisions i hadn't made. v3,
+"machine room", started by deleting the template.
+
+the result is a static site. next.js writes the html at build time, cloudflare pages
+serves it from the edge, and there is no server to keep alive. case studies are MDX
+files, diagrams are inline SVG, and the copy, projects, gallery, and stack notes live
+in one typed content file. the hero strip is the one thing fed by a live system: it
+reports the homelab through the same Go service from the previous case study.
+
+<figure class="diagram">
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" fontFamily="JetBrains Mono, monospace" fontSize="11">
+  <defs>
+    <marker id="pw-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="pw-a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="20" fill="#8b98ab" fontSize="9.5" letterSpacing="1">deploy</text>
+
+  <rect x="20" y="34" width="150" height="66" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="32" y="56" fill="#e6edf3">repo</text>
+  <text x="32" y="72" fill="#8b98ab" fontSize="9.5">mdx · content.ts</text>
+  <text x="32" y="86" fill="#8b98ab" fontSize="9.5">tokens · svg</text>
+
+  <rect x="210" y="34" width="160" height="66" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="222" y="56" fill="#e6edf3">github</text>
+  <text x="222" y="72" fill="#8b98ab" fontSize="9.5">awaleha/personal-website</text>
+
+  <rect x="410" y="26" width="150" height="82" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="422" y="48" fill="#e6edf3">cloudflare pages</text>
+  <text x="422" y="64" fill="#8b98ab" fontSize="9.5">next build</text>
+  <text x="422" y="78" fill="#8b98ab" fontSize="9.5">output: export</text>
+
+  <rect x="600" y="34" width="100" height="66" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="612" y="56" fill="#e6edf3">edge</text>
+  <text x="612" y="72" fill="#8b98ab" fontSize="9.5">static html</text>
+  <text x="612" y="86" fill="#8b98ab" fontSize="9.5">+ json</text>
+
+  <path d="M170 67 H210" stroke="#1f2937" marker-end="url(#pw-a)"/>
+  <path d="M370 67 H410" stroke="#1f2937" marker-end="url(#pw-a)"/>
+  <text x="376" y="58" fill="#8b98ab" fontSize="9.5">push</text>
+  <path d="M560 67 H600" stroke="#1f2937" marker-end="url(#pw-a)"/>
+
+  <text x="20" y="152" fill="#8b98ab" fontSize="9.5" letterSpacing="1">snapshot</text>
+
+  <rect x="20" y="166" width="160" height="64" fill="#0a0e14" stroke="#22d3ee" rx="3"/>
+  <text x="32" y="188" fill="#e6edf3">stygai-status</text>
+  <text x="32" y="204" fill="#8b98ab" fontSize="9.5">json api · tailnet only</text>
+
+  <rect x="250" y="166" width="160" height="64" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="262" y="188" fill="#e6edf3">fetch-status.mjs</text>
+  <text x="262" y="204" fill="#8b98ab" fontSize="9.5">run on the homelab</text>
+  <text x="262" y="218" fill="#8b98ab" fontSize="9.5">manual snapshot</text>
+
+  <rect x="460" y="166" width="150" height="64" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="472" y="188" fill="#e6edf3">public/status.json</text>
+  <text x="472" y="204" fill="#8b98ab" fontSize="9.5">committed</text>
+
+  <path d="M180 198 H250" stroke="#1f2937" marker-end="url(#pw-a)"/>
+  <text x="188" y="190" fill="#8b98ab" fontSize="9.5">run</text>
+  <path d="M410 198 H460" stroke="#1f2937" marker-end="url(#pw-a)"/>
+  <text x="418" y="190" fill="#8b98ab" fontSize="9.5">write</text>
+  <path d="M535 166 V112" stroke="#1f2937" strokeDasharray="4 4" marker-end="url(#pw-a)"/>
+  <text x="545" y="142" fill="#8b98ab" fontSize="9.5">baked at build</text>
+
+  <text x="20" y="296" fill="#8b98ab" fontSize="9.5" letterSpacing="1">development</text>
+
+  <rect x="250" y="312" width="170" height="54" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="262" y="334" fill="#e6edf3">site-dev</text>
+  <text x="262" y="350" fill="#8b98ab" fontSize="9.5">node:22 · npm run dev</text>
+
+  <rect x="460" y="312" width="170" height="54" fill="#0a0e14" stroke="#1f2937" rx="3"/>
+  <text x="472" y="334" fill="#e6edf3">tailscale serve</text>
+  <text x="472" y="350" fill="#8b98ab" fontSize="9.5">tailnet preview :8443</text>
+
+  <path d="M100 230 V339 H250" fill="none" stroke="#22d3ee" strokeDasharray="6 4" marker-end="url(#pw-a-cyan)"/>
+  <text x="112" y="280" fill="#22d3ee" fontSize="9.5">docker network · live</text>
+  <path d="M420 339 H460" stroke="#1f2937" marker-end="url(#pw-a)"/>
+</svg>
+<figcaption>production bakes the committed snapshot at build; development talks to the api live over the docker network</figcaption>
+</figure>
+
+## the design
+
+four rules carried most of it: red is only for alarms, monospace is only for machine
+output, borders are hairlines instead of cards, and the page gets one orchestrated
+load moment, the status strip powering on. everything else hangs off a small token
+set: ink, panel, line, text, mute, cyan, alarm.
+
+dark only, no theme toggle. type is Space Grotesk for display, Geist for body,
+JetBrains Mono for data. there is no component library; the design system is a couple
+hundred lines of css and a handful of components. the copy got the same treatment as
+the code, written the way i'd say it, which took longer than the layout.
+
+## architecture
+
+the build is the deployment. a push to main triggers cloudflare pages, next renders
+every page to static html, and the output goes to the edge. no runtime server, no
+database, no cache to invalidate. the worst failure mode is a bad build, and the
+previous deploy stays up until the new one passes.
+
+the status strip is the interesting seam. `/api/status` is a route handler marked
+`force-static`, so next runs it once at build time. it tries the stygai-status api and
+falls back to the `public/status.json` snapshot committed to the repo, which is the
+normal path on cloudflare's builders because they can't see the tailnet. the snapshot
+itself is refreshed from the homelab on purpose and then committed. the payload
+carries a `source` field, so the page can label the data honestly: `live · tailnet` in
+local development, `snapshot` with its date on the public site.
+
+development also runs on the homelab: a node container with the repo volume-mounted,
+attached to the same docker network as stygai-status, and a tailscale serve preview
+for the phone. no node on the host, and the dev site sees live data.
+
+## decisions
+
+- **static by default.** every page is html before a request exists. that removes a
+  whole category of work: no server to patch, no cache to warm, no uptime to worry
+  about.
+- **content as data.** copy, nav, projects, gallery metadata, and the uses page live
+  in `src/resources/content.ts`. case studies are one MDX file per project. adding
+  this project was a content entry and a file.
+- **diagrams as SVG.** the case studies draw their own diagrams inline instead of
+  shipping screenshots. they inherit the page tokens, scale cleanly, and show up in a
+  diff.
+- **honest status.** the strip never pretends a snapshot is live. the source chip is
+  part of the design, not a debug detail.
+- **one load moment.** the status strip animates in once, and that is the only
+  choreography on the page. everything else is static.
+- **no component library.** the site is built from native elements, a few small
+  components, and css tokens. nothing to upgrade but a short list of direct
+  dependencies.
+
+## what i learned
+
+the template was scaffolding, not architecture. deleting it was the project: once the
+layout was mine, the copy, the type, and the status strip all had to earn their place.
+
+static export turned out to be a set of design constraints. no middleware, no image
+optimizer, route handlers that can only run at build time. next 16 deprecates
+middleware with `output: export` anyway, so the live status proxy became a
+`force-static` route handler with a committed fallback. the constraint made the
+boundary between build time and runtime obvious, which is exactly what the status
+strip needed to be honest about.
+
+and the hard part of a personal site is not the css. it is writing the copy in your
+own voice and resisting the urge to make it sound like a company.
+
+## links
+
+- [awalehassan.com](https://awalehassan.com)
+- [github.com/awaleha/personal-website](https://github.com/awaleha/personal-website)

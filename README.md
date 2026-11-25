@@ -1,6 +1,8 @@
 # awalehassan.com
 
-Personal site, v3 — "Machine Room". Next.js 16, static export, deployed to Cloudflare Pages.
+Personal site, v3 ("Machine Room"). Next.js 16, static export, deployed to Cloudflare Pages.
+
+Live at [awalehassan.com](https://awalehassan.com).
 
 ## Stack
 
@@ -38,8 +40,8 @@ docker exec site-dev npm install
 docker exec site-dev npm run dev   # http://127.0.0.1:3050
 ```
 
-Tailnet preview: `tailscale serve --bg --https=8443 http://127.0.0.1:3050`
-→ `https://stygai.taild24ec5.ts.net:8443`
+Tailnet preview: `tailscale serve --bg --https=8443 http://127.0.0.1:3050`, then open
+the tailnet URL it prints.
 
 ## Build
 
