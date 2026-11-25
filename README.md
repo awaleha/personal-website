@@ -51,3 +51,10 @@ docker exec site-dev sh -c "npm run build && rm -rf /app/.next /app/out"
 
 Content lives in `src/resources/content.ts` (copy, nav, projects, gallery, /uses)
 and `src/app/work/projects/*.mdx` (case studies).
+
+## License
+
+The source code is licensed under the MIT License. See [LICENSE](LICENSE).
+
+Photographs, gallery images, and written content are © 2026 Awale Hassan and may not
+be reused without permission.
