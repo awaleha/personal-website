@@ -120,13 +120,6 @@ export const gallery = {
       height: 749,
     },
     {
-      src: "/images/gallery/slash.jpg",
-      alt: "a cat",
-      caption: "slash",
-      width: 379,
-      height: 376,
-    },
-    {
       src: "/images/gallery/oldtown.jpg",
       alt: "the workstation",
       caption: "oldtown, the workstation",
