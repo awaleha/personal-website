@@ -8,7 +8,7 @@ export const site = {
   baseURL: "https://awalehassan.com",
   title: "Awale Hassan · software engineer",
   description:
-    "software engineer in Toronto. seven years of banking software by day; a self-hosted stack, reported live from the server in my apartment, by night.",
+    "software engineer in Toronto. seven years training in the fintech charnel pits; i like to relax by moonlighting as a sysadmin. built a self-hosted stack, broadcasting live from the server in my apartment.",
 };
 
 export const person = {
@@ -36,7 +36,7 @@ export const nav = [
 export const home = {
   headline: "internet,\nwrit small.",
   subline:
-    "software engineer in the greatest city north of the 43rd parallel. banking and fintech software savant by day, exhausted self-hosted sysadmin by night. this page ships from Cloudflare's edge; the stats below report live the server on my desk.",
+    "welcome to my palace. hand made 1's and 0's, reporting live from the greatest city north of the 43rd parallel. stats below report live from the server on my desk.",
   tower: {
     src: "/images/stygai-tower.jpg",
     alt: "stygai, the homelab server, a compact tower",
