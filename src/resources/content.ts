@@ -36,7 +36,7 @@ export const nav = [
 export const home = {
   headline: "internet,\nwrit small.",
   subline:
-    "welcome to my palace. hand made 1's and 0's, reporting live from the greatest city north of the 43rd parallel. stats below report live from the server on my desk.",
+    "eco-friendly, small-batch, handcrafted 1's and 0's. made in the greatest city north of the 43rd parallel. stats below report live from the server on my desk.",
   tower: {
     src: "/images/stygai-tower.jpg",
     alt: "stygai, the homelab server, a compact tower",
@@ -309,8 +309,8 @@ export const uses = {
 
 export const about = {
   intro: [
-    "i'm a full-stack software engineer with seven years under my belt. the bulk of my experience is building software specialized for banking and fintech. currently working at Propel Holdings Inc., where i translate business ideas into real software for brand launches: React and TypeScript dashboards backed by Spring Boot, while refactoring compliance-critical customer communication pipelines. before Propel, i cut my teeth at Home Trust Financial building content management apps with Next.js, Java Spring, and MySQL, plus automating AWS deployments.",
-    "when not writing code, me and Claude run a small home lab: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain. built with Docker Compose, Traefik, and a healthy respect for keeping things boring.",
+    "software engineer in Toronto. seven years training in the fintech charnel pits; currently working at Propel Holdings where i translate business ideas into hard code for brand launches, refactoring compliance-critical customer communication apps on the side. React + TypeScript + Spring Boot is my most experienced stack (but Golang's currently winning my favor). before Propel, i cut my teeth at Home Trust Financial building content management software with Next.js, Java Spring, and MySQL, plus automating AWS deployments.",
+    "when not writing code, i like to relax by moonlighting as a sysadmin. built a self-hosted stack, broadcasting live from the server in my apartment: a Tailscale-only network serving media, monitoring, photos, and a handful of self-written services under a single Cloudflare-fronted domain. built with Docker Compose, Traefik, and a healthy fear of every new RCE vulnerability.",
   ],
   skills: [
     {
