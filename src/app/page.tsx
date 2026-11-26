@@ -14,7 +14,7 @@ export default function Home() {
             <h1 className="whitespace-pre-line font-display text-[2.75rem] font-semibold leading-[1.04] tracking-tight md:text-[3.9rem]">
               {home.headline}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-mute">{home.subline}</p>
+            <p className="whitespace-pre-line mt-6 max-w-xl text-lg leading-relaxed text-mute">{home.subline}</p>
             <div className="mt-8 flex gap-6 text-[0.9375rem]">
               <Link href="/work" className="link-quiet">
                 the work
