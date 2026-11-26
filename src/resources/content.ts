@@ -36,7 +36,7 @@ export const nav = [
 export const home = {
   headline: "internet,\nwrit small.",
   subline:
-    "eco-friendly, small-batch, handcrafted 1's and 0's. made in the greatest city north of the 43rd parallel. stats below report live from the server on my desk.",
+    "eco-friendly, small-batch, handcrafted 1's and 0's. \nmade in the greatest city north of the 43rd parallel. \nstats below report live from the server on my desk.",
   tower: {
     src: "/images/stygai-tower.jpg",
     alt: "stygai, the homelab server, a compact tower",
