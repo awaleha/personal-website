@@ -2,19 +2,14 @@
 
 import { useEffect } from "react";
 
-// The two frames of favgif.gif, exported as 16x16 PNG data URLs. Chrome, Edge
-// and Safari only paint the first frame of an animated GIF favicon, so the
-// animation has to be driven by swapping the icon link. Firefox animates the
-// GIF itself; the swap gives every other browser the same result.
+// Two frames of favgif.gif, exported as 16x16 PNGs. Chrome, Edge and Safari
+// only paint the first frame of an animated GIF favicon, and Firefox 147+
+// rasterizes favicons to a static image before displaying them. Swapping the
+// icon link is the only way left to animate it. Holds match the gif delays
+// (700ms, then 500ms).
 const frames = [
-  {
-    src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAADFBMVEUAAAAAfPAAAAD///+q1q+CAAAAAXRSTlMAQObYZgAAADVJREFUGNNjYEAHjGgAU4AJDTAwMaMLoImAtDCjC6CIQAxlJqAC3Qx0WyB8ZhBAGIqsgiAAANPoAY+WQaPBAAAAAElFTkSuQmCC",
-    hold: 70,
-  },
-  {
-    src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAADFBMVEUAAAAAfPAAAAD///+q1q+CAAAAAXRSTlMAQObYZgAAADBJREFUGNOFjrENAAAIwlD+/9kYJ+tgx0ZAiQS4IoHSFDAdMcUyU+rngh1cuX9AvBTSxgGKE0vI5AAAAABJRU5ErkJggg==",
-    hold: 50,
-  },
+  { src: "/favicon-0.png", hold: 700 },
+  { src: "/favicon-1.png", hold: 500 },
 ];
 
 function faviconLink(): HTMLLinkElement {
