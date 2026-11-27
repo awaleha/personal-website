@@ -1,7 +1,8 @@
 // Boots the favicon animation during html parsing, before react hydrates.
 // the static test pages (public/favicon-subtle.html, favicon-blink.html) use
-// this exact technique and animate in firefox, while the same loop run from a
-// react effect does not.
+// this exact technique and animate in firefox. differences that matter there:
+// the icon link exists before hydration, and the first swap waits 500ms so
+// firefox has already resolved the initial icon.
 export const faviconScript = String.raw`(function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -9,10 +10,14 @@ export const faviconScript = String.raw`(function () {
     { src: "/favicon-0.png", hold: 700 },
     { src: "/favicon-1.png", hold: 500 }
   ];
+
   var link = document.querySelector('link[rel~="icon"]');
   if (!link) {
     link = document.createElement("link");
     link.rel = "icon";
+    link.type = "image/png";
+    link.setAttribute("sizes", "16x16");
+    link.href = "/favicon-0.png";
     document.head.appendChild(link);
   }
 
@@ -54,5 +59,7 @@ export const faviconScript = String.raw`(function () {
     else stop();
   });
 
-  if (document.visibilityState === "visible") start();
+  if (document.visibilityState === "visible") {
+    timer = window.setTimeout(step, 500);
+  }
 })();`;

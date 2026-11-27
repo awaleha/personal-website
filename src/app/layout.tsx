@@ -13,9 +13,6 @@ export const metadata: Metadata = {
     template: `%s · ${person.name}`,
   },
   description: site.description,
-  icons: {
-    icon: [{ url: "/favicon-0.png", type: "image/png", sizes: "16x16" }],
-  },
   openGraph: {
     type: "website",
     locale: "en_CA",
@@ -59,13 +56,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static favicon loop, no user input */}
+        <script dangerouslySetInnerHTML={{ __html: faviconScript }} />
         <div className="mx-auto flex min-h-screen w-full max-w-[68rem] flex-col px-4 sm:px-6">
           <TopBar />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static favicon loop, no user input */}
-        <script dangerouslySetInnerHTML={{ __html: faviconScript }} />
       </body>
     </html>
   );

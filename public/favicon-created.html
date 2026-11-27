@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>favicon created test</title>
+    <style>
+      body {
+        background: #0a0e14;
+        color: #e6edf3;
+        font: 16px/1.5 ui-monospace, monospace;
+        padding: 2rem;
+      }
+      p {
+        color: #8b98ab;
+      }
+    </style>
+    <script>
+      (function () {
+        var frames = [
+          { src: "/favicon-0.png", hold: 700 },
+          { src: "/favicon-1.png", hold: 500 },
+        ];
+        var link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/png";
+        link.setAttribute("sizes", "16x16");
+        link.href = "/favicon-0.png";
+        document.head.appendChild(link);
+
+        var index = 0;
+        var version = 0;
+        function step() {
+          var frame = frames[index];
+          var next = document.createElement("link");
+          next.rel = "icon";
+          next.type = "image/png";
+          next.setAttribute("sizes", "16x16");
+          next.href = frame.src + "?v=" + version++;
+          document.head.appendChild(next);
+          link.remove();
+          link = next;
+          index = (index + 1) % frames.length;
+          setTimeout(step, frame.hold);
+        }
+        setTimeout(step, 500);
+      })();
+    </script>
+  </head>
+  <body>
+    <h1>favicon created test</h1>
+    <p>no icon link in the markup. the script creates it, then blinks at 700/500ms.</p>
+    <p id="status">script ran</p>
+  </body>
+</html>
