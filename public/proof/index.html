@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>Firefox 161 favicon proof</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #f2f4f7;
+        --panel: #ffffff;
+        --ink: #11161d;
+        --muted: #5c6675;
+        --line: #d7dde5;
+        --accent: #1f6feb;
+        --accent-soft: #e8f0fe;
+        color-scheme: light;
+        --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+        --font-body: "Inter", system-ui, -apple-system, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0b0f14;
+          --panel: #111821;
+          --ink: #e6edf3;
+          --muted: #8b98ab;
+          --line: #223041;
+          --accent: #5b9dff;
+          --accent-soft: #14263f;
+          color-scheme: dark;
+        }
+      }
+
+      :root[data-theme="dark"] {
+        --bg: #0b0f14;
+        --panel: #111821;
+        --ink: #e6edf3;
+        --muted: #8b98ab;
+        --line: #223041;
+        --accent: #5b9dff;
+        --accent-soft: #14263f;
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.55;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+      }
+
+      .page {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding-block: 3rem 4rem;
+      }
+
+      .hero {
+        display: grid;
+        gap: 1rem;
+        padding-bottom: 1.75rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        text-wrap: balance;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 62ch;
+        font-size: 1.05rem;
+        color: var(--ink);
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+        gap: 0.9rem 1.5rem;
+        margin: 0.4rem 0 0;
+      }
+
+      .meta dt {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .meta dd {
+        margin: 0.15rem 0 0;
+        font-size: 0.9rem;
+        overflow-wrap: anywhere;
+      }
+
+      .figures {
+        display: grid;
+        gap: 1.25rem;
+        padding-block: 1.75rem 0;
+      }
+
+      figure {
+        margin: 0;
+        padding: 1rem;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 2px;
+      }
+
+      .blink-wrap {
+        display: grid;
+        justify-items: start;
+        gap: 0.75rem;
+      }
+
+      .blink-gif,
+      .blink-static {
+        width: 192px;
+        height: 192px;
+        image-rendering: pixelated;
+        border: 1px solid var(--line);
+        background: var(--bg);
+      }
+
+      .blink-static {
+        display: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .blink-gif {
+          display: none;
+        }
+
+        .blink-static {
+          display: block;
+        }
+      }
+
+      figcaption {
+        margin-top: 0.7rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .method {
+        margin-top: 2.25rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .method h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .method ol {
+        margin: 0;
+        padding-left: 1.25rem;
+        display: grid;
+        gap: 0.35rem;
+        max-width: 70ch;
+      }
+
+      .method p {
+        margin: 0;
+        max-width: 70ch;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      code {
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+        background: var(--accent-soft);
+        color: var(--ink);
+        padding: 0.1em 0.35em;
+        border-radius: 3px;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding-block: 2rem 3rem;
+        }
+
+        .blink-gif,
+        .blink-static {
+          width: 144px;
+          height: 144px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">screenshot evidence · 2026-11-27</p>
+        <h1>Firefox 161 favicon proof</h1>
+        <p class="lede">
+          The home page tab icon alternates between its two frames in a real headed Firefox
+          161 window. This was captured from the preview build, not from the headless
+          browser.
+        </p>
+        <dl class="meta">
+          <div>
+            <dt>build</dt>
+            <dd>cfc9049</dd>
+          </div>
+          <div>
+            <dt>browser</dt>
+            <dd>firefox 161.0, official linux build</dd>
+          </div>
+          <div>
+            <dt>profile</dt>
+            <dd>fresh, no extensions</dd>
+          </div>
+          <div>
+            <dt>page</dt>
+            <dd>favicon-gif.personal-website-44w.pages.dev</dd>
+          </div>
+        </dl>
+      </header>
+
+      <div class="figures">
+        <figure>
+          <div class="blink-wrap">
+            <img
+              class="blink-gif"
+              src="tab-blink.gif"
+              alt="Animated crop of the Firefox tab icon, the small white bar under the angle bracket toggling on and off"
+              width="192"
+              height="192"
+            />
+            <img
+              class="blink-static"
+              src="tab0.png"
+              alt="Enlarged crop of the Firefox tab icon"
+              width="192"
+              height="192"
+            />
+          </div>
+          <figcaption>
+            tab icon, screenshot every 250ms. the white bar at the bottom of the &lt;
+            appears and disappears. motion is reduced on this page, so the still frame is
+            shown here.
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img
+            src="crops.png"
+            alt="Six enlarged tab icon stills in a row, alternating between the bar visible and hidden"
+            width="1152"
+            height="192"
+          />
+          <figcaption>
+            six stills, 0.75s apart: bar, no bar, bar, no bar, bar, no bar. the icon
+            itself never changes; only the small bottom bar toggles.
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img
+            src="screen0.png"
+            alt="Full Firefox 161 window at 1280 by 900 showing the personal site and the first-run welcome dialog"
+            width="1280"
+            height="900"
+          />
+          <figcaption>
+            full window, 1280x900. the first-run dialog is up because the profile is new;
+            the tab sits at top left. the icon crop above comes from this tab.
+          </figcaption>
+        </figure>
+      </div>
+
+      <section class="method">
+        <h2>how this was taken</h2>
+        <ol>
+          <li>Downloaded the official Firefox 161.0 Linux build from Mozilla.</li>
+          <li>
+            Ran it headed on a virtual X display (Xvfb) with a fresh profile and no
+            add-ons.
+          </li>
+          <li>Loaded the preview home page and let it settle.</li>
+          <li>
+            Captured the root window with ImageMagick every 250ms, then cropped the 24x24
+            tab icon region from each shot.
+          </li>
+        </ol>
+        <p>
+          The static test pages (<code>/favicon-subtle</code>, <code>/favicon-created</code>,
+          <code>/favicon-blink</code>) animate the same way. This page records the home
+          page, which was the one reported static.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
