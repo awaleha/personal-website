@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AnimatedFavicon } from "@/components/AnimatedFavicon";
 import { Footer } from "@/components/Footer";
 import { TopBar } from "@/components/TopBar";
+import { faviconScript } from "@/lib/favicon-script";
 import { fonts } from "@/lib/fonts";
 import { person, site } from "@/resources/content";
 
@@ -59,12 +59,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        <AnimatedFavicon />
         <div className="mx-auto flex min-h-screen w-full max-w-[68rem] flex-col px-4 sm:px-6">
           <TopBar />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static favicon loop, no user input */}
+        <script dangerouslySetInnerHTML={{ __html: faviconScript }} />
       </body>
     </html>
   );
