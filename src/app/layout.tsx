@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     template: `%s · ${person.name}`,
   },
   description: site.description,
+  icons: {
+    icon: [{ url: "/favicon.gif", type: "image/gif", sizes: "16x16" }],
+  },
   openGraph: {
     type: "website",
     locale: "en_CA",
